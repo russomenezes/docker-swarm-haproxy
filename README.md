@@ -1,39 +1,46 @@
-Docker Swarm Cluster e HAProxy Setup
+# Docker Swarm Cluster e HAProxy Setup
 
 Este repositório fornece instruções para configurar e gerenciar um cluster Docker Swarm com um balanceador de carga HAProxy. O HAProxy será configurado para distribuir o tráfego entre os nós do cluster.
 Pré-requisitos
 
-    Mínimo de três máquinas para o cluster Docker Swarm (VMs ou servidores físicos) com Docker instalado.
-    Uma máquina adicional para o HAProxy.
-    Conhecimento básico em Docker e HAProxy.
+* Mínimo de três máquinas para o cluster Docker Swarm (VMs ou servidores físicos) com Docker instalado.
+* Uma máquina adicional para o HAProxy.
+* Conhecimento básico em Docker e HAProxy.
 
-Configuração Inicial do Cluster
-Inicialização do Swarm
+# Configuração Inicial do Cluster
 
-    Inicialize o Swarm no Manager Principal:
+## Inicialização do Swarm
 
-    docker swarm init --advertise-addr 192.168.18.172
+Inicialize o Swarm no Manager Principal:
 
-    Substitua o IP pelo IP do seu docker-manager1.
+```
+ docker swarm init --advertise-addr 192.168.18.172
+```
+Substitua o IP pelo IP do seu docker-manager1.
 
-Adição de Nós ao Cluster
+### Adição de Nós ao Cluster
 
-    Obtenha o Token de Worker e Manager:
+Obtenha o Token de Worker e Manager:
 
-    docker swarm join-token worker
-    docker swarm join-token manager
+```
+docker swarm join-token worker
+docker swarm join-token manager
 
-    Adicione os Workers e Managers:
-        Execute o comando de join nos nós docker-manager2 e docker-worker.
+```
+### Adicione os Workers e Managers:
 
-Configuração do HAProxy
+Execute o comando de join nos nós docker-manager2 e docker-worker.
 
-    Prepare a Máquina do HAProxy (haproxy-server):
-        Endereço IP: 192.168.18.175.
+## Configuração do HAProxy
 
-    Configuração do HAProxy:
-    Crie um arquivo de configuração haproxy.cfg com o seguinte conteúdo:
-
+# Prepare a Máquina do HAProxy (haproxy-server):
+  
+```
+ Endereço IP: 192.168.18.175.
+```
+### Configuração do HAProxy:
+Crie um arquivo de configuração haproxy.cfg com o seguinte conteúdo:
+```
     haproxy
 
     global
@@ -63,9 +70,10 @@ Configuração do HAProxy
        server docker-manager2 192.168.18.171:80 check
        server docker-worker 192.168.18.170:80 check
 
-        Este exemplo configura o HAProxy para balancear o tráfego HTTP entre os nós do Swarm.
+```
+Este exemplo configura o HAProxy para balancear o tráfego HTTP entre os nós do Swarm.
 
-    Inicie o HAProxy com a Nova Configuração.
+### Inicie o HAProxy com a Nova Configuração.
 
 Gerenciamento do Cluster
 
