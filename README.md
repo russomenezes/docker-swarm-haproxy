@@ -75,14 +75,12 @@ Este exemplo configura o HAProxy para balancear o tráfego HTTP entre os nós do
 
 ### Inicie o HAProxy com a Nova Configuração.
 
-Gerenciamento do Cluster
+# Gerenciamento do Cluster
 
 (Seguem as mesmas instruções de gerenciamento do cluster Docker Swarm conforme a seção anterior.)
 Recomendações
+* Configure o monitoramento e alertas para o HAProxy e os nós do Docker Swarm.
+* Teste a configuração em um ambiente de teste antes de aplicar em produção.
 
-    Configure o monitoramento e alertas para o HAProxy e os nós do Docker Swarm.
-    Teste a configuração em um ambiente de teste antes de aplicar em produção.
-
-Contribuição
-
+# Contribuição
 Contribuições para melhorar a configuração, scripts, e documentação são bem-vindas.
